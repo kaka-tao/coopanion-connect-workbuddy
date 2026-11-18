@@ -1,0 +1,16 @@
+{
+  "provider": {
+    "title": "WorkBuddy",
+    "description": "使用 WorkBuddy 桌面端的登录状态，无需 API Key。",
+    "protocols": ["openai-chat"],
+    "auth": ["web-session"],
+    "local": false,
+    "input": ["text", "image"],
+    "reasoningTiers": [
+      { "id": "off", "label": "不思考", "thinking": false },
+      { "id": "low", "label": "低强度", "thinking": true, "effort": "low" },
+      { "id": "high", "label": "高强度", "thinking": true, "effort": "high" },
+      { "id": "max", "label": "最大强度", "thinking": true, "effort": "max" }
+    ]
+  }
+}

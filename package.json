@@ -1,0 +1,68 @@
+{
+  "name": "coopanion-connect-workbuddy",
+  "version": "0.1.0",
+  "description": "Coopanion provider for Tencent WorkBuddy / CodeBuddy: reuse the desktop app sign-in, no API key to paste",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "author": {
+    "name": "tao_kaka",
+    "url": "https://github.com/kaka-tao"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaka-tao/cortico-provider-workbuddy.git"
+  },
+  "homepage": "https://github.com/kaka-tao/cortico-provider-workbuddy#readme",
+  "bugs": {
+    "url": "https://github.com/kaka-tao/cortico-provider-workbuddy/issues"
+  },
+  "os": [
+    "win32"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "icon.svg",
+    "describe.json",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "cortico-provider",
+    "cortico",
+    "coopanion",
+    "workbuddy",
+    "codebuddy",
+    "tencent",
+    "llm",
+    "provider"
+  ],
+  "cortico": {
+    "kind": "provider",
+    "api": 6,
+    "displayName": "WorkBuddy",
+    "icon": "icon.svg",
+    "describe": "describe.json",
+    "tags": [
+      "unofficial-api",
+      "external-setup"
+    ],
+    "locales": {
+      "zh": {
+        "displayName": "WorkBuddy",
+        "description": "腾讯 WorkBuddy（CodeBuddy）模型供应商，复用本机桌面端已登录的凭据，不用填 API Key。"
+      },
+      "en": {
+        "displayName": "WorkBuddy",
+        "description": "Tencent WorkBuddy (CodeBuddy) as a model provider, reusing the sign-in already stored by the desktop app. No API key to paste."
+      }
+    }
+  }
+}
