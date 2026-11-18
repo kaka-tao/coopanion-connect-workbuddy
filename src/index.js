@@ -8,7 +8,7 @@
 import { nullLogger } from 'cortico/core/util.ts';
 import { discoverAllCredentials, resolveTokensWithKey } from './credentials.js';
 import { WorkBuddyChat } from './chat.js';
-import { BASE_URL, fetchCatalog } from './upstream.js';
+import { BASE_URL, KNOWN_LIMITS, fetchCatalog } from './upstream.js';
 
 const TIERS = (t) => [
   { id: 'off', label: t.tiers.off, thinking: false },
@@ -163,7 +163,22 @@ const WORKBUDDY = {
   /** 端点不留密钥：凭据由桌面端提供，写进 `.env` 只会让框架误判成缺密钥。 */
   normalize(entry) {
     const { secret: _secret, ...rest } = entry;
-    return { ...rest, baseUrl: entry.baseUrl || BASE_URL };
+    const next = { ...rest, baseUrl: entry.baseUrl || BASE_URL };
+    const spec = next.spec;
+    const model = typeof spec?.model === 'string' ? spec.model.trim() : '';
+    if (!model) return next;
+    // 目录优先，未拉到目录时用内置表兜底；用户手填过就不覆盖。
+    const known = catalog?.models.find((m) => m.id === model) ?? KNOWN_LIMITS[model];
+    if (!known) return next;
+    const filled = { ...spec, model };
+    if (filled.contextWindow === undefined && known.contextWindow) filled.contextWindow = known.contextWindow;
+    if (filled.maxTokens === undefined && known.maxOutputTokens) filled.maxTokens = known.maxOutputTokens;
+    // 上游约束：上下文窗口必须大于最大输出。手填出矛盾时让出输出上限，别让保存失败。
+    if (filled.contextWindow !== undefined && filled.maxTokens !== undefined && filled.contextWindow <= filled.maxTokens) {
+      filled.contextWindow = undefined;
+    }
+    next.spec = filled;
+    return next;
   },
 
   /** 本地状态：没有桌面端登录状态时，开始页与模型页都要说清楚原因。 */

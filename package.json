@@ -1,6 +1,6 @@
 {
   "name": "coopanion-connect-workbuddy",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Coopanion provider for Tencent WorkBuddy / CodeBuddy: reuse the desktop app sign-in, no API key to paste",
   "type": "module",
   "private": false,

@@ -87,6 +87,29 @@ export async function fetchCatalog(accessToken, log) {
   return { models, source };
 }
 
+/**
+ * 目录还没拉到时用的兜底模型事实（2026-11 上游实测值）。
+ * 目录拉到以后以目录为准，这张表只在首次保存、离线等场景兜底。
+ */
+export const KNOWN_LIMITS = {
+  auto: { contextWindow: 256000, maxOutputTokens: 32000 },
+  'glm-5.3': { contextWindow: 1000000, maxOutputTokens: 64000 },
+  'glm-5.3-flash': { contextWindow: 1000000, maxOutputTokens: 131072 },
+  'glm-5.2': { contextWindow: 1000000, maxOutputTokens: 64000 },
+  'kimi-k3-1': { contextWindow: 1000000, maxOutputTokens: 32000 },
+  'kimi-k3.1-pro': { contextWindow: 1000000, maxOutputTokens: 32000 },
+  'kimi-k2.8-preview': { contextWindow: 1000000, maxOutputTokens: 64000 },
+  'deepseek-v4.1-flash': { contextWindow: 1000000, maxOutputTokens: 128000 },
+  'deepseek-v4-pro': { contextWindow: 1000000, maxOutputTokens: 128000 },
+  'space-bunny': { contextWindow: 1000000, maxOutputTokens: 128000 },
+  'step-5-preview': { contextWindow: 1000000, maxOutputTokens: 64000 },
+  'mimo-v2.6-pro': { contextWindow: 1000000, maxOutputTokens: 128000 },
+  'minimax-m3.1-flash': { contextWindow: 1000000, maxOutputTokens: 128000 },
+  hy4std: { contextWindow: 960000, maxOutputTokens: 64000 },
+  'hy4flash-free': { contextWindow: 960000, maxOutputTokens: 64000 },
+  hy4flash: { contextWindow: 960000, maxOutputTokens: 64000 },
+};
+
 /** WorkBuddy 的 SSE 一定以 `data:` 行给出；错误也可能塞进 200 的正文里。 */
 export function upstreamError(text) {
   try {

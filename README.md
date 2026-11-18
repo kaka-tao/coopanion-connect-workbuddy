@@ -79,6 +79,13 @@ Market install, step by step:
    | Model | click **Fetch model list**, then pick one, e.g. `DeepSeek-V4.1-Flash` |
    | API key | **leave empty** — see [below](#why-there-is-no-api-key) |
    | Reasoning tier | `high` is a good default; `off` for cheapest |
+   | Context window | filled automatically from the catalog on save (e.g. `1000000`) |
+   | Max output tokens | filled automatically to the model maximum (e.g. `128000`) |
+
+   Both numbers come from the catalog the extension already fetched, so there is nothing to type.
+   If you do edit them, your value wins; the only rule is that the context window has to stay
+   larger than the max output, otherwise the extension drops the context window instead of
+   letting the save fail.
 
 7. **Test connection**, then **Activate**.
 8. The start page now lists it under *Connected models* as `WorkBuddy · <model>`.
@@ -200,6 +207,11 @@ ELECTRON_RUN_AS_NODE=1 "C:\Program Files\WorkBuddy\WorkBuddy.exe" \
    | 模型 | 点**获取模型列表**后选，如 `DeepSeek-V4.1-Flash` |
    | API Key | **留空** —— 原因见[下文](#为什么不需要-api-key) |
    | 推理强度 | 默认 `high`；想省钱选 `off` |
+   | 上下文上限 | 保存时按模型目录自动填（如 `1000000`） |
+   | 最大输出 token | 保存时自动填成该模型的最大值（如 `128000`） |
+
+   这两个数字来自扩展已经拉过的模型目录，不用手填。手工改过就以你填的为准；
+   唯一的约束是上下文上限必须大于最大输出，否则扩展宁可把上下文上限清空，也不让保存失败。
 
 7. **测试连接**，通过后**激活**；
 8. 开始页的「已连接的模型：」就会出现 `WorkBuddy · <模型名>`。
