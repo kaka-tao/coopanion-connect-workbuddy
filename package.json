@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaka-tao/cortico-provider-workbuddy.git"
+    "url": "git+https://github.com/kaka-tao/coopanion-connect-workbuddy.git"
   },
-  "homepage": "https://github.com/kaka-tao/cortico-provider-workbuddy#readme",
+  "homepage": "https://github.com/kaka-tao/coopanion-connect-workbuddy#readme",
   "bugs": {
-    "url": "https://github.com/kaka-tao/cortico-provider-workbuddy/issues"
+    "url": "https://github.com/kaka-tao/coopanion-connect-workbuddy/issues"
   },
   "os": [
     "win32"
