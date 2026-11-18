@@ -58,25 +58,40 @@ WorkBuddy desktop identity headers (`X-IDE-Name`, `X-Product*`, UA).
 
 ## Install
 
-Two ways:
+In Coopanion, switch the rail to **advanced mode** (the button at the bottom of the left rail),
+open **Model providers**, and pick the **Extension market** tab.
 
-1. In Coopanion, go to the provider settings → extensions → install from a local directory, and
-   pick this folder. Or
-2. Install it from npm (see [Publishing](#publishing)): it appears in the provider extension
-   market once published, because the market catalog is generated from npm by keyword.
+Market install, step by step:
 
-Either way, restart Coopanion afterwards so the module is imported.
+1. **Model providers** (left rail, under "Access").
+2. Tab **Extension market** next to **Settings**.
+3. Type `coopanion` in the filter box — the entry is
+   `coopanion-connect-workbuddy`, publisher `tao_kaka`.
+4. Click **Install**. It should say *Extension installed* and **restart required**.
+5. Click **Restart process** (or quit and reopen Coopanion). Extensions are only imported at
+   process start, so nothing appears before this.
+6. Back in **Model providers → Settings**: the module list now has **WorkBuddy**.
+   Create an endpoint (+ New connection instance), pick it, and fill:
 
-Then create an endpoint in the model settings:
+   | Field | Value |
+   | --- | --- |
+   | Base URL | `https://copilot.tencent.com` (already prefilled) |
+   | Model | click **Fetch model list**, then pick one, e.g. `DeepSeek-V4.1-Flash` |
+   | API key | **leave empty** — see [below](#why-there-is-no-api-key) |
+   | Reasoning tier | `high` is a good default; `off` for cheapest |
 
-| Field | Value |
-| --- | --- |
-| Module | WorkBuddy |
-| Base URL | `https://copilot.tencent.com` |
-| Model | click "fetch model list" and pick one, e.g. `deepseek-v4.1-flash` |
-| Secret | leave empty |
+7. **Test connection**, then **Activate**.
+8. The start page now lists it under *Connected models* as `WorkBuddy · <model>`.
 
-Then activate it.
+The market catalog is generated from npm by keyword (`cortico-provider`), so no PR or review
+is involved: publishing a new version to npm is what makes it show up.
+
+Alternative without npm — install from this folder: the same **Extension market** tab has
+**Manual install → From a local path**, which takes a directory containing `package.json`.
+Useful while hacking on the source, since it links instead of copying.
+
+If the process was already running when you installed, a stale entry can stay listed until the
+restart; the restart is not optional.
 
 ## Reasoning tiers
 
@@ -168,22 +183,34 @@ ELECTRON_RUN_AS_NODE=1 "C:\Program Files\WorkBuddy\WorkBuddy.exe" \
 
 ### 安装
 
-两种方式：
+在 Coopanion 里先把左栏切到**高级模式**（左栏底部的按钮），打开**模型供应商**，进**扩展市场**页签。
 
-1. 在 Coopanion 的模型设置 →「扩展」里选「从本地目录安装」，挑中本目录；
-2. 从 npm 安装（见「发布」）。上架后它会出现在「模型供应商 → 扩展市场」里，
-   因为市场目录是用关键字扫 npm 生成的。
+从市场安装，一步步来：
 
-装好后重启 Coopanion，再在「模型」页新建端点：
+1. 左栏「接入」下的**模型供应商**；
+2. 「设置」旁边的**扩展市场**页签；
+3. 筛选框里输 `coopanion`，条目是 `coopanion-connect-workbuddy`，发布者 `tao_kaka`；
+4. 点**安装**，提示「安装成功」并**需要重启**；
+5. 点**重启进程**（或者退出重开 Coopanion）。扩展只在进程启动时加载，重启前什么都不会出现；
+6. 回到**模型供应商 → 设置**，模块列表里多出 **WorkBuddy**。新建一条供应商实例，选它，填：
 
-| 字段 | 值 |
-| --- | --- |
-| 模块 | WorkBuddy |
-| Base URL | `https://copilot.tencent.com` |
-| 模型 | 点「获取模型列表」后选，或手填如 `deepseek-v4.1-flash` |
-| 密钥 | 留空 |
+   | 字段 | 值 |
+   | --- | --- |
+   | Base URL | `https://copilot.tencent.com`（已预填） |
+   | 模型 | 点**获取模型列表**后选，如 `DeepSeek-V4.1-Flash` |
+   | API Key | **留空** —— 原因见[下文](#为什么不需要-api-key) |
+   | 推理强度 | 默认 `high`；想省钱选 `off` |
 
-然后「激活」。
+7. **测试连接**，通过后**激活**；
+8. 开始页的「已连接的模型：」就会出现 `WorkBuddy · <模型名>`。
+
+市场目录是按关键字（`cortico-provider`）扫 npm 生成的，没有 PR、也没有人工审核——
+往 npm 发新版本就是上架。
+
+不想走 npm 的话，同一个**扩展市场**页签里有**手动安装 → 从本机目录安装**，
+选包含 `package.json` 的目录即可；改源码时用它更方便，因为它是链接而不是拷贝。
+
+装的时候进程已经在跑的话，列表里可能留一个旧条目，等重启才更新——重启这步省不掉。
 
 ### 强度档位
 
